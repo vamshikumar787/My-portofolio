@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BOYA VADLA VAMSHI KUMAR | AI/ML & Full Stack</title>
+  <meta name="description" content="AI/ML-focused CSE student and full stack developer. Projects: AI Content Studio, Hotel Pineapple.">
+  
+  <!-- External CSS and Fonts -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;600&family=Sora:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Embedded CSS with Font Color Fix -->
+  <style>
+    /*
+      ==============================================
+      VARIABLES & THEME COLORS
+      ==============================================
+    */
+    :root {
+      --bg: #0b1220;
+      --bg-alt: #0f172a;
+      --card: rgba(255, 255, 255, .06);
+      --border: rgba(255, 255, 255, .12);
+      --text: #ffffff;
+      --muted: #b0bec5;
+      --heading: #e0f7fa;
+      --primary: #7c3aed;
+      --accent: #06b6d4;
+    }
+
+    /*
+      ==============================================
+      BOOTSTRAP OVERRIDE & FONT COLOR FIX
+      ==============================================
+    */
+    body, p, .card, .card-body, .form-label, .info-grid div {
+      color: var(--text);
+    }
+    .card-title {
+      color: var(--heading);
+    }
+    .text-muted, .card-text.text-muted, small.text-muted {
+      color: var(--muted) !important;
+    }
+    .form-control {
+      color: var(--text);
+      background-color: rgba(255, 255, 255, 0.05);
+      border-color: var(--border);
+    }
+    .form-control::placeholder {
+      color: var(--muted);
+      opacity: 0.7;
+    }
+    .form-control:focus {
+      color: var(--text);
+      background-color: rgba(255, 255, 255, 0.08);
+      border-color: var(--primary);
+      box-shadow: 0 0 0 0.25rem rgba(124, 58, 237, 0.25);
+    }
+
+    /*
+      ==============================================
+      BASE & TYPOGRAPHY
+      ==============================================
+    */
+    * {
+      box-sizing: border-box;
+    }
+    html, body {
+      height: 100%;
+    }
+    body {
+      position: relative;
+      font-family: 'Inter', system-ui, Segoe UI, Arial, sans-serif;
+      letter-spacing: .1px;
+      background: #0b1220;
+      background-image: radial-gradient(1200px 600px at 10% -20%, #1e293b44, transparent 60%),
+        radial-gradient(800px 400px at 100% 0%, #0ea5e944, transparent 40%);
+      overflow-x: hidden;
+    }
+    .content-above {
+      position: relative;
+      z-index: 1;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Sora', system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+      color: var(--heading);
+      letter-spacing: .2px;
+    }
+    .mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .text-gradient {
+      background: linear-gradient(90deg, var(--accent), #22d3ee, #a78bfa, var(--primary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    
+    /*
+      ==============================================
+      LAYOUT & COMPONENTS
+      ==============================================
+    */
+    .bg-alt {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent);
+    }
+    .section {
+      position: relative;
+    }
+    .nav-glass {
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #1f2937;
+    }
+    header {
+      padding-top: 100px;
+      position: relative;
+    }
+    .hero-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 10px 40px rgba(2, 6, 23, 0.6);
+      transform: translateY(8px);
+      animation: floatIn .8s ease forwards .1s;
+    }
+    .profile-wrap {
+      position: relative;
+      display: inline-block;
+    }
+    .profile {
+      max-width: 320px;
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      border: 3px solid var(--border);
+      border-radius: 50%;
+      margin: 0 auto;
+      box-shadow: 0 0 40px rgba(124, 58, 237, 0.3);
+    }
+    .ring {
+      position: absolute;
+      border: 1px dashed #64748b55;
+      border-radius: 50%;
+      animation: ringPulse 6s ease-in-out infinite;
+    }
+    .ring-1 {
+      width: 115%;
+      height: 115%;
+      left: -7.5%;
+      top: -7.5%;
+    }
+    .ring-2 {
+      width: 135%;
+      height: 135%;
+      left: -17.5%;
+      top: -17.5%;
+      animation-delay: 1.2s;
+    }
+    .btn-glow {
+      box-shadow: 0 0 0 rgba(124, 58, 237, 0.6);
+      transition: box-shadow .25s, transform .15s;
+    }
+    .btn-glow:hover {
+      box-shadow: 0 10px 30px rgba(124, 58, 237, 0.35);
+      transform: translateY(-1px);
+    }
+    .card {
+      border: 1px solid var(--border);
+      background: var(--card);
+    }
+    .card-glass {
+      background: var(--card);
+      border: 1px solid var(--border);
+      backdrop-filter: blur(6px);
+    }
+    .project {
+      transition: transform .2s, box-shadow .2s;
+    }
+    .project:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(2, 6, 23, 0.5);
+    }
+    .project-img {
+      position: relative;
+    }
+    .pulse-dot {
+      position: absolute;
+      right: 14px;
+      top: 14px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 12px var(--accent);
+      animation: pulse 1.4s infinite;
+    }
+    .skill-chip {
+      display: inline-block;
+      width: 100%;
+      text-align: center;
+      padding: 10px 14px;
+      border-radius: 12px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, .06), rgba(255, 255, 255, .02));
+      border: 1px solid var(--border);
+      font-weight: 600;
+      color: #cbd5e1;
+      transition: transform .15s, border-color .2s;
+    }
+    .skill-chip:hover {
+      transform: translateY(-4px);
+      border-color: #c084fc;
+    }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+    .stat {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px;
+      text-align: center;
+      transition: transform .2s;
+    }
+    .stat:hover {
+      transform: translateY(-6px);
+    }
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: all .6s ease;
+    }
+    .reveal.show {
+      opacity: 1;
+      transform: none;
+    }
+    .role {
+      min-height: 28px;
+      color: #c7d2fe;
+    }
+    .type-caret::after {
+      content: "|";
+      margin-left: 4px;
+      animation: blink 1s infinite;
+    }
+    #aiBg {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      width: 100vw;
+      height: 100vh;
+      background: radial-gradient(1200px 600px at -20% 10%, #312e8155, transparent 60%),
+        radial-gradient(800px 400px at 120% 10%, #14b8a655, transparent 40%),
+        #0b1220;
+    }
+    .gradient-glow {
+      position: fixed;
+      inset: auto -15% -15% -15%;
+      height: 60vh;
+      z-index: -1;
+      background: radial-gradient(60% 60% at 50% 50%, rgba(124, 58, 237, .18), transparent 60%),
+        radial-gradient(40% 50% at 30% 30%, rgba(20, 184, 166, .15), transparent 60%);
+      filter: blur(60px);
+    }
+    .cert-list {
+      display: grid;
+      gap: 12px;
+    }
+    .cert-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--card);
+      transition: background .2s, border-color .2s;
+    }
+    .cert-item:hover {
+       background: rgba(255, 255, 255, 0.04);
+       border-color: var(--accent);
+    }
+    .cert-title {
+      flex-grow: 1;
+    }
+    .cert-title span {
+      font-weight: 600;
+    }
+    .cert-title small {
+      display: block;
+      color: var(--muted);
+      font-weight: 500;
+      margin-top: 2px;
+    }
+    
+    /*
+      ==============================================
+      KEYFRAMES & ANIMATIONS
+      ==============================================
+    */
+    @keyframes pulse {
+      0% { transform: scale(.95); }
+      50% { transform: scale(1); }
+      100% { transform: scale(.95); }
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: .2; }
+    }
+    @keyframes ringPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.06); }
+    }
+    @keyframes floatIn {
+      to { transform: none; }
+    }
+    
+    /*
+      ==============================================
+      FOOTER & RESPONSIVE
+      ==============================================
+    */
+    footer {
+      border-top: 1px solid #1f2937;
+      background: rgba(255, 255, 255, .02);
+    }
+    @media (max-width: 991px) {
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+      .stats {
+        grid-template-columns: 1fr 1fr;
+      }
+      .profile {
+        max-width: 280px;
+        width: 70%;
+      }
+      .cert-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+    }
+  </style>
+</head>
+<body data-bs-spy="scroll" data-bs-target="#navbar" data-bs-offset="90">
+  <!-- Animated Background Canvas + Glow -->
+  <canvas id="aiBg" aria-hidden="true"></canvas>
+  <div class="gradient-glow" aria-hidden="true"></div>
+
+  <!-- Navbar -->
+  <nav id="navbar" class="navbar navbar-expand-lg navbar-dark nav-glass fixed-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="#home">Vamshi Kumar</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navContent" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navContent">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
+          <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
+          <li class="nav-item"><a class="nav-link" href="#education">Education</a></li>
+          <li class="nav-item"><a class="nav-link" href="#certs">Certifications</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+        </ul>
+        <button type="button" class="btn btn-primary ms-lg-3" data-bs-toggle="modal" data-bs-target="#resumeModal">
+          Resume
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Content wrapper to stay above background -->
+  <main class="content-above">
+    <!-- Hero -->
+    <header id="home" class="vh-100 d-flex align-items-center section">
+      <div class="container position-relative">
+        <div class="row align-items-center g-4">
+          <div class="col-lg-7">
+            <div class="hero-card reveal">
+              <span class="badge bg-ai mb-3">AI/ML • Full Stack</span>
+              <h1 class="display-5 fw-bold mb-3">Hi, I’m <span class="text-gradient">BOYA VADLA VAMSHI KUMAR</span></h1>
+              <p class="lead mb-2">
+                <span class="mono">Computer Science (AI & ML)</span> student with a strong foundation in full stack development—building reliable, scalable, and user-focused products.
+              </p>
+              <p class="role typewriter" data-text="AI Developer • ML Enthusiast • Full Stack Engineer • Problem Solver"></p>
+              <div class="d-flex flex-wrap gap-2 mt-3">
+                <a href="#projects" class="btn btn-primary btn-glow">View Projects</a>
+                <a href="#contact" class="btn btn-outline-light">Contact</a>
+                <a class="btn btn-outline-info" href="https://github.com/vamshikumar787" target="_blank" rel="noopener">GitHub</a>
+                <a class="btn btn-outline-primary" href="https://linkedin.com/in/boya-vadla-vamshi-kumar-42188031b" target="_blank" rel="noopener">LinkedIn</a>
+                <a class="btn btn-outline-success" href="https://boyavadlavamshikumarwebsite.netlify.app" target="_blank" rel="noopener">Portfolio</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-5 text-center">
+            <div class="profile-wrap reveal">
+              <img src="https://i.pinimg.com/736x/71/37/b2/7137b21c6f036a15020aded5064479b8.jpg" class="img-fluid profile" alt="Profile photo of Vamshi Kumar" onerror="this.onerror=null;this.src='https://placehold.co/400x400/1e293b/ffffff?text=Profile+Image';">
+              <div class="ring ring-1"></div>
+              <div class="ring ring-2"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- About -->
+    <section id="about" class="py-5 section">
+      <div class="container">
+        <div class="row g-4 align-items-center">
+          <div class="col-lg-7 reveal">
+            <h2 class="fw-bold mb-3">About Me</h2>
+            <p class="mb-3">
+              A passionate and driven CSE student specializing in <strong>AI & ML</strong>, eager to apply skills to real-world problems. Proven ability to learn fast and implement new technologies through hands-on projects and certifications.
+            </p>
+            <div class="info-grid">
+              <div><span class="text-muted">Location</span><div>Kurnool, Andhra Pradesh</div></div>
+              <div><span class="text-muted">Email</span><div>vadlavamshikumar787@gmail.com</div></div>
+              <div><span class="text-muted">Phone</span><div>6303130205</div></div>
+              <div><span class="text-muted">Open to</span><div>Internships • Full-time</div></div>
+            </div>
+          </div>
+          <div class="col-lg-5 reveal">
+            <div class="stats">
+              <div class="stat">
+                <div class="h2 fw-bold">2026</div>
+                <div class="small text-muted">B.Tech Graduation (Expected)</div>
+              </div>
+              <div class="stat">
+                <div class="h2 fw-bold">3+</div>
+                <div class="small text-muted">Major Projects</div>
+              </div>
+              <div class="stat">
+                <div class="h2 fw-bold">10+</div>
+                <div class="small text-muted">Certifications</div>
+              </div>
+              <div class="stat">
+                <div class="h2 fw-bold">AI/ML</div>
+                <div class="small text-muted">Primary Focus</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills" class="py-5 section bg-alt">
+      <div class="container">
+        <h2 class="fw-bold mb-4 reveal">Skills</h2>
+        <div class="row g-3">
+          <div class="col-6 col-md-3 reveal"><span class="skill-chip">C Programming</span></div>
+          <div class="col-6 col-md-3 reveal"><span class="skill-chip">Python</span></div>
+          <div class="col-6 col-md-3 reveal"><span class="skill-chip">JavaScript</span></div>
+          <div class="col-6 col-md-3 reveal"><span class="skill-chip">SQL</span></div>
+          <div class="col-6 col-md-3 reveal"><span class="skill-chip">HTML5</span></div>
+          <div class="col-6 col-md-3 reveal"><span class="skill-chip">CSS3</span></div>
+          <div class="col-6 col-md-3 reveal"><span class="skill-chip">Node.js</span></div>
+          <div class="col-6 col-md-3 reveal"><span class="skill-chip">React</span></div>
+          <div class="col-6 col-md-3 reveal"><span class="skill-chip">Firebase</span></div>
+          <div class="col-6 col-md-3 reveal"><span class="skill-chip">SQL Databases</span></div>
+          <div class="col-6 col-md-3 reveal"><span class="skill-chip">Generative AI</span></div>
+          <div class="col-6 col-md-3 reveal"><span class="skill-chip">Git & GitHub</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" class="py-5 section">
+      <div class="container">
+        <h2 class="fw-bold mb-4 reveal">Projects</h2>
+        <div class="row g-4">
+          <div class="col-md-6 col-lg-4 reveal">
+            <div class="card project h-100">
+              <div class="project-img">
+                <img src="https://tse2.mm.bing.net/th/id/OIP.Xptrnb59G6mSNPJy66gDIwHaD7?pid=Api&P=0&h=180" class="card-img-top" alt="AI Content Studio" onerror="this.onerror=null;this.src='https://placehold.co/600x400/0f172a/e0f7fa?text=Project+1';">
+                <span class="pulse-dot"></span>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">AI Content Studio</h5>
+                <p class="card-text text-muted small">
+                  Full-stack app generating content using Gemini API with Firebase for storage; built end‑to‑end.
+                </p>
+                <div class="d-flex flex-wrap gap-2 mb-3">
+                  <span class="badge text-bg-secondary">Node.js</span>
+                  <span class="badge text-bg-secondary">Firebase</span>
+                  <span class="badge text-bg-secondary">Gemini API</span>
+                </div>
+                <a href="https://vamshi-ai-studio.netlify.app/" class="btn btn-outline-primary btn-sm" target="_blank" rel="noopener">Live Demo</a>
+                <a href="https://github.com/vamshikumar787/ai-content-studio" class="btn btn-outline-secondary btn-sm" target="_blank" rel="noopener">GitHub</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4 reveal">
+            <div class="card project h-100">
+              <img src="https://user-images.githubusercontent.com/89755021/258644677-272ac072-0702-4c83-9a79-a09a2eb43b4c.png" class="card-img-top" alt="Hotel Pineapple" onerror="this.onerror=null;this.src='https://placehold.co/600x400/0f172a/e0f7fa?text=Project+2';">
+              <div class="card-body">
+                <h5 class="card-title">Hotel Pineapple – Food Delivery</h5>
+                <p class="card-text text-muted small">
+                  Web platform for seamless food ordering with an engaging UI/UX, shopping cart, and intuitive navigation.
+                </p>
+                <div class="d-flex flex-wrap gap-2 mb-3">
+                  <span class="badge text-bg-secondary">HTML</span>
+                  <span class="badge text-bg-secondary">CSS</span>
+                  <span class="badge text-bg-secondary">JavaScript</span>
+                </div>
+                <a href="" class="btn btn-outline-primary btn-sm" target="_blank" rel="noopener">Live Demo</a>
+                <a href="https://github.com/vamshikumar787/pineapple_" class="btn btn-outline-secondary btn-sm" target="_blank" rel="noopener">GitHub</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4 reveal">
+            <div class="card project h-100">
+              <img src="https://cdn1.vectorstock.com/i/1000x1000/45/20/event-management-concept-banner-header-vector-23614520.jpg" class="card-img-top" alt="Event Management CLI">
+              <div class="card-body">
+                <h5 class="card-title">Event Management CLI</h5>
+                <p class="card-text text-muted small">
+                  A command-line interface application built with Python for managing events, attendees, and scheduling.
+                </p>
+                <div class="d-flex flex-wrap gap-2 mb-3">
+                  <span class="badge text-bg-secondary">Python</span>
+                  <span class="badge text-bg-secondary">CLI</span>
+                  <span class="badge text-bg-secondary">File I/O</span>
+                </div>
+                <a href="https://github.com/vamshikumar787/EventPlannerProject" class="btn btn-outline-secondary btn-sm" target="_blank" rel="noopener">GitHub</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Education -->
+    <section id="education" class="py-5 section bg-alt">
+      <div class="container">
+        <h2 class="fw-bold mb-4 reveal">Education</h2>
+        <div class="row g-3">
+          <div class="col-md-6 reveal">
+            <div class="card card-glass">
+              <div class="card-body">
+                <h6 class="mb-1">B.Tech, Computer Science Engineering (AI & ML)</h6>
+                <small class="text-muted">Mohan Babu University, Tirupati • 80.4% • Expected 2026</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 reveal">
+            <div class="card card-glass">
+              <div class="card-body">
+                <h6 class="mb-1">Intermediate</h6>
+                <small class="text-muted">Sastra Junior College, Guntakal • 74.8% • 2022</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 reveal">
+            <div class="card card-glass">
+              <div class="card-body">
+                <h6 class="mb-1">SSC</h6>
+                <small class="text-muted">ZPH School, Nemakal • 89.3% • 2020</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Certifications -->
+    <section id="certs" class="py-5 section">
+        <div class="container">
+            <h2 class="fw-bold mb-4 reveal">Certifications</h2>
+            <div class="cert-list">
+                
+                <div class="cert-item reveal">
+                    <div class="cert-title">
+                        <span>Data Analysis with Python — IBM</span>
+                        <small>Jan 29, 2025</small>
+                    </div>
+                    <button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#certificateModal" data-src="https://i.pinimg.com/736x/33/7f/91/337f919cecaa96015a48d3ec8bdc883b.jpg" data-title="Data Analysis with Python — IBM">View Certificate</button>
+                </div>
+
+                <div class="cert-item reveal">
+                    <div class="cert-title">
+                        <span>SQL and Relational Databases 101 — IBM</span>
+                        <small>Jan 29, 2025</small>
+                    </div>
+                     <button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#certificateModal" data-src="https://i.pinimg.com/736x/1b/2c/89/1b2c893a6f742508a346548b2e8f046c.jpg" data-title="SQL and Relational Databases 101 — IBM">View Certificate</button>
+                </div>
+
+                <div class="cert-item reveal">
+                    <div class="cert-title">
+                        <span>Prompt Engineering for Everyone — IBM</span>
+                        <small>Jan 29, 2025</small>
+                    </div>
+                     <button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#certificateModal" data-src="https://i.pinimg.com/736x/92/52/3e/92523ecdda9a1c028464b91555a2ce94.jpg" data-title="Prompt Engineering for Everyone — IBM">View Certificate</button>
+                </div>
+
+                <div class="cert-item reveal">
+                    <div class="cert-title">
+                        <span>Cybersecurity Analyst Job Simulation — TATA & Forage</span>
+                        <small>Jan 29, 2025</small>
+                    </div>
+                     <button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#certificateModal" data-src="https://i.pinimg.com/736x/4a/c7/0e/4ac70ed2a77ec4d0e4cf8e44a3e997c3.jpg" data-title="Cybersecurity Analyst Job Simulation — TATA & Forage">View Certificate</button>
+                </div>
+
+                <div class="cert-item reveal">
+                    <div class="cert-title">
+                        <span>Introduction to Generative AI Studio — Google Cloud</span>
+                        <small>Aug 2, 2025</small>
+                    </div>
+                     <button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#certificateModal" data-src="https://i.pinimg.com/736x/28/b0/2e/28b02e695ee147e5951342ad4e197b0f.jpg" data-title="Introduction to Generative AI Studio — Google Cloud">View Certificate</button>
+                </div>
+
+                <div class="cert-item reveal">
+                    <div class="cert-title">
+                        <span>Python Essentials 2 — Cisco & OpenEDG</span>
+                        <small>Jan 30, 2025</small>
+                    </div>
+                     <button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#certificateModal" data-src="https://i.pinimg.com/736x/17/3a/a7/173aa73e3800e5a5a7c08b756d2cae33.jpg" data-title="Python Essentials 2 — Cisco & OpenEDG">View Certificate</button>
+                </div>
+
+                <div class="cert-item reveal">
+                    <div class="cert-title">
+                        <span>Python Essentials 1 — Cisco & OpenEDG</span>
+                        <small>Jan 26, 2025</small>
+                    </div>
+                     <button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#certificateModal" data-src="https://i.pinimg.com/736x/e3/24/15/e324157c8250b5fa2d4a20e08d1d3029.jpg" data-title="Python Essentials 1 — Cisco & OpenEDG">View Certificate</button>
+                </div>
+
+                <div class="cert-item reveal">
+                    <div class="cert-title">
+                        <span>Python Full Course Online — GeeksforGeeks</span>
+                        <small>Completion Certificate</small>
+                    </div>
+                     <button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#certificateModal" data-src="https://i.pinimg.com/736x/e5/ff/e7/e5ffe748ab32a84c71161f6134723caf.jpg" data-title="Python Full Course Online — GeeksforGeeks">View Certificate</button>
+                </div>
+
+                <div class="cert-item reveal">
+                    <div class="cert-title">
+                        <span>Full Stack Developer Bootcamp — GeeksforGeeks</span>
+                        <small>Completion Certificate</small>
+                    </div>
+                     <button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#certificateModal" data-src="https://i.pinimg.com/736x/e2/67/b8/e267b8d2d3fc3819a99d78c24588a932.jpg" data-title="Full Stack Developer Bootcamp — GeeksforGeeks">View Certificate</button>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="py-5 section bg-alt">
+      <div class="container">
+        <h2 class="fw-bold mb-4 reveal">Contact</h2>
+        <div class="row g-4">
+          <div class="col-lg-6 reveal">
+            <form name="contact" class="card card-glass p-4" data-netlify="true">
+              <div class="mb-3">
+                <label class="form-label">Name</label>
+                <input type="text" name="name" class="form-control" id="name" required>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input type="email" name="email" class="form-control" id="email" required>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Message</label>
+                <textarea name="message" class="form-control" id="message" rows="4" required></textarea>
+              </div>
+            </form>
+          </div>
+          <div class="col-lg-6 reveal">
+            <div class="p-4 card card-glass h-100">
+              <p class="mb-2"><strong>Name:</strong> Boya Vadla Vamshi Kumar</p>
+              <p class="mb-2"><strong>Email:</strong> vadlavamshikumar787@gmail.com</p>
+              <p class="mb-2"><strong>Phone:</strong> 6303130205</p>
+              <p class="mb-2"><strong>Location:</strong> Kurnool, Andhra Pradesh</p>
+              <div class="d-flex flex-wrap gap-2">
+                <a class="btn btn-outline-light btn-sm" href="https://github.com/vamshikumar787" target="_blank" rel="noopener">GitHub</a>
+                <a class="btn btn-outline-primary btn-sm" href="https://linkedin.com/in/boya-vadla-vamshi-kumar-42188031b" target="_blank" rel="noopener">LinkedIn</a>
+                <a class="btn btn-outline-success btn-sm" href="https://boyavadlavamshikumarwebsite.netlify.app" target="_blank" rel="noopener">Portfolio</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="py-4 text-center text-muted small">
+    © <span id="year"></span> BOYA VADLA VAMSHI KUMAR. All rights reserved.
+  </footer>
+
+  <!-- Resume Modal -->
+  <div class="modal fade" id="resumeModal" tabindex="-1" aria-labelledby="resumeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content" style="background-color: #1e293b;">
+        <div class="modal-header border-bottom border-secondary">
+          <h1 class="modal-title fs-5" id="resumeModalLabel">My Resume</h1>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-0">
+          <iframe src="assets/BOYA VADLA VAMSHI KUMAR resume.pdf" style="width: 100%; height: 80vh;" frameborder="0"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Certificate Modal (Reusable) -->
+  <div class="modal fade" id="certificateModal" tabindex="-1" aria-labelledby="certificateModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content" style="background-color: #1e293b;">
+        <div class="modal-header border-bottom border-secondary">
+          <h1 class="modal-title fs-5" id="certificateModalLabel">Certificate</h1>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-0">
+          <iframe id="certificateFrame" src="" style="width: 100%; height: 80vh;" frameborder="0"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- External JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <!-- Embedded JavaScript -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const yearEl = document.getElementById('year');
+      if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+      document.querySelectorAll('a.nav-link, a.btn[href^="#"]').forEach(a => {
+        a.addEventListener('click', e => {
+          const href = a.getAttribute('href');
+          if (href && href.startsWith('#')) {
+            e.preventDefault();
+            const targetEl = document.querySelector(href);
+            if (targetEl) {
+                targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+            const navCollapse = document.getElementById('navContent');
+            if (navCollapse.classList.contains('show')) {
+                new bootstrap.Collapse(navCollapse).hide();
+            }
+          }
+        });
+      });
+
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(en => {
+          if (en.isIntersecting) {
+            en.target.classList.add('show');
+            io.unobserve(en.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+      const role = document.querySelector('.role');
+      if (role) {
+        const phrases = (role.dataset.text || '').split('•').map(s => s.trim()).filter(Boolean);
+        let i = 0, j = 0, deleting = false;
+        const loop = () => {
+          const phrase = phrases[i] || '';
+          role.textContent = deleting ? phrase.slice(0, j--) : phrase.slice(0, j++);
+          role.classList.add('type-caret');
+          if (!deleting && j === phrase.length + 3) { 
+            deleting = true; 
+            setTimeout(loop, 1200);
+          } else if (deleting && j < 0) { 
+            deleting = false; 
+            i = (i + 1) % phrases.length; 
+            setTimeout(loop, 300); 
+          } else {
+            setTimeout(loop, deleting ? 40 : 60);
+          }
+        };
+        if (phrases.length) loop();
+      }
+      const certificateModal = document.getElementById('certificateModal');
+      if (certificateModal) {
+        certificateModal.addEventListener('show.bs.modal', event => {
+          const button = event.relatedTarget;
+          const certSrc = button.getAttribute('data-src');
+          const certTitle = button.getAttribute('data-title');
+          
+          const modalTitle = certificateModal.querySelector('.modal-title');
+          const iframe = certificateModal.querySelector('#certificateFrame');
+          
+          modalTitle.textContent = certTitle;
+          iframe.setAttribute('src', certSrc);
+        });
+      }
+
+      initAIMLBg();
+    });
+
+    function initAIMLBg() {
+      const c = document.getElementById('aiBg');
+      if (!c) return;
+      const ctx = c.getContext('2d', { alpha: true });
+      let w = 0, h = 0, dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const nodes = [];
+      const NODE_COUNT_MOBILE = 40;
+      const NODE_COUNT_DESKTOP = 80;
+      let NODE_COUNT = window.innerWidth < 768 ? NODE_COUNT_MOBILE : NODE_COUNT_DESKTOP;
+      const MAX_DIST = 150;
+
+      function setSize() {
+        const cssW = window.innerWidth;
+        const cssH = window.innerHeight;
+        c.width = Math.floor(cssW * dpr);
+        c.height = Math.floor(cssH * dpr);
+        c.style.width = cssW + 'px';
+        c.style.height = cssH + 'px';
+        w = c.width;
+        h = c.height;
+      }
+      setSize();
+
+      window.addEventListener('resize', () => {
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        NODE_COUNT = window.innerWidth < 768 ? NODE_COUNT_MOBILE : NODE_COUNT_DESKTOP;
+        setSize();
+        nodes.length = 0;
+        for (let i = 0; i < NODE_COUNT; i++) nodes.push(makeNode());
+      }, { passive: true });
+
+      function rand(a, b) { return Math.random() * (b - a) + a; }
+      function makeNode() {
+        return {
+          x: rand(0, w), y: rand(0, h),
+          vx: rand(-0.15, 0.15), vy: rand(-0.15, 0.15),
+          r: rand(1.2, 2.2) * dpr,
+          q: Math.random() < 0.5 ? 'violet' : 'cyan'
+        };
+      }
+      for (let i = 0; i < NODE_COUNT; i++) nodes.push(makeNode());
+
+      function step() {
+        ctx.clearRect(0, 0, w, h);
+        const maxd = MAX_DIST * dpr;
+        for (let i = 0; i < nodes.length; i++) {
+          for (let j = i + 1; j < nodes.length; j++) {
+            const dx = nodes[i].x - nodes[j].x;
+            const dy = nodes[i].y - nodes[j].y;
+            const dist = Math.hypot(dx, dy);
+            if (dist < maxd) {
+                const a = 1 - (dist / maxd);
+                ctx.strokeStyle = `rgba(${nodes[i].q === 'violet' ? '124,58,237' : '6,182,212'},${0.15 * a})`;
+                ctx.lineWidth = 0.7 * dpr * a;
+                ctx.beginPath();
+                ctx.moveTo(nodes[i].x, nodes[i].y);
+                ctx.lineTo(nodes[j].x, nodes[j].y);
+                ctx.stroke();
+            }
+          }
+        }
+        for (const n of nodes) {
+          n.x += n.vx * dpr; n.y += n.vy * dpr;
+          if (n.x < 0 || n.x > w) n.vx *= -1;
+          if (n.y < 0 || n.y > h) n.vy *= -1;
+          ctx.fillStyle = n.q === 'violet' ? 'rgba(124,58,237,0.9)' : 'rgba(6,182,212,0.9)';
+          ctx.beginPath();
+          ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        requestAnimationFrame(step);
+      }
+      step();
+    }
+  </script>
+</body>
+</html>

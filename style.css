@@ -1,0 +1,453 @@
+/* Mowa, ikkada nunchi colors change cheyochu.
+  I've added comments to explain what each color variable does.
+  You can replace the color codes (like #ffffff) with any color you like.
+*/
+:root {
+  --bg: #0b1220;
+  --bg-alt: #0f172a;
+  --card: rgba(255, 255, 255, .06);
+  --border: rgba(255, 255, 255, .12);
+
+  /* === TEXT COLOR CHANGES ARE HERE === */
+  
+  /* This is the main paragraph text color. I changed it to a brighter white. */
+  --text: #ffffff;
+  
+  /* This is for less important text. I made it a lighter gray. */
+  --muted: #b0bec5;
+  
+  /* This is for all the main headings (H1, H2, etc.). I made it a very light cyan. */
+  --heading: #e0f7fa;
+
+  /* --- Other colors --- */
+  --primary: #7c3aed; /* violet */
+  --accent: #06b6d4;  /* cyan */
+}
+
+/* ==============================================
+   BOOTSTRAP OVERRIDE & FONT COLOR FIX
+   ============================================== */
+
+/* General text color for paragraphs and other elements.
+  Bootstrap's default color is dark, so we force it to use our light variable.
+*/
+body, p, .card, .card-body, .form-label {
+  color: var(--text); /* --text is #ffffff, which is white */
+}
+
+/* Make sure card titles also get the bright heading color.
+*/
+.card-title {
+  color: var(--heading); /* --heading is #e0f7fa, a light cyan */
+}
+
+/* Sometimes Bootstrap's muted text can be too dark. 
+  Our --muted variable is already good, but this ensures it applies everywhere.
+*/
+.card-text.text-muted, small.text-muted {
+  color: var(--muted) !important; /* --muted is #b0bec5, a brighter gray */
+}
+
+/* Fix for form input text color. 
+  When you type, the text might be dark. This makes it white.
+*/
+.form-control {
+  color: var(--text);
+  background-color: rgba(255, 255, 255, 0.05); /* Optional: slight background for visibility */
+  border-color: var(--border);
+}
+
+.form-control:focus {
+  color: var(--text);
+  background-color: rgba(255, 255, 255, 0.08);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 0.25rem rgba(124, 58, 237, 0.25); /* Using your primary color for focus */
+}
+
+
+/* Base */
+* {
+  box-sizing: border-box
+}
+
+html,
+body {
+  height: 100%
+}
+
+body {
+  position: relative;
+  font-family: 'Inter', system-ui, Segoe UI, Arial, sans-serif;
+  /* color: var(--text); <-- This is now handled by the override section above */
+  letter-spacing: .1px;
+  background: #0b1220; /* fallback color if JS disabled */
+  background-image: radial-gradient(1200px 600px at 10% -20%, #1e293b44, transparent 60%),
+    radial-gradient(800px 400px at 100% 0%, #0ea5e944, transparent 40%);
+  overflow-x: hidden;
+}
+
+.content-above {
+  position: relative;
+  z-index: 1
+}
+
+/* Typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Sora', system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+  color: var(--heading);
+  letter-spacing: .2px;
+}
+
+.mono {
+  font-family: 'JetBrains Mono', monospace
+}
+
+.text-gradient {
+  background: linear-gradient(90deg, var(--accent), #22d3ee, #a78bfa, var(--primary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent
+}
+
+.text-muted {
+  color: var(--muted) !important
+}
+
+/* Sections and backgrounds */
+.bg-alt {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent)
+}
+
+.section {
+  position: relative
+}
+
+/* Navbar glass */
+.nav-glass {
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid #1f2937;
+}
+
+/* Hero */
+header {
+  padding-top: 100px;
+  position: relative
+}
+
+.hero-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px;
+  box-shadow: 0 10px 40px rgba(2, 6, 23, 0.6);
+  transform: translateY(8px);
+  animation: floatIn .8s ease forwards .1s;
+}
+
+.profile-wrap {
+  position: relative;
+  display: inline-block
+}
+
+.profile {
+  max-height: 420px;
+  object-fit: cover;
+  border: 1px solid var(--border);
+  border-radius: 16px
+}
+
+.ring {
+  position: absolute;
+  border: 1px dashed #64748b55;
+  border-radius: 50%;
+  animation: ringPulse 6s ease-in-out infinite;
+}
+
+.ring-1 {
+  width: 115%;
+  height: 115%;
+  left: -7.5%;
+  top: -7.5%
+}
+
+.ring-2 {
+  width: 135%;
+  height: 135%;
+  left: -17.5%;
+  top: -17.5%;
+  animation-delay: 1.2s
+}
+
+/* Buttons, cards */
+.btn-glow {
+  box-shadow: 0 0 0 rgba(124, 58, 237, 0.6);
+  transition: box-shadow .25s, transform .15s
+}
+
+.btn-glow:hover {
+  box-shadow: 0 10px 30px rgba(124, 58, 237, 0.35);
+  transform: translateY(-1px)
+}
+
+.card {
+  border: 1px solid var(--border);
+  background: var(--card)
+}
+
+.card-glass {
+  background: var(--card);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(6px)
+}
+
+.project {
+  transition: transform .2s, box-shadow .2s
+}
+
+.project:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 50px rgba(2, 6, 23, 0.5)
+}
+
+.project-img {
+  position: relative
+}
+
+.pulse-dot {
+  position: absolute;
+  right: 14px;
+  top: 14px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 12px var(--accent);
+  animation: pulse 1.4s infinite
+}
+
+/* Skills chips */
+.skill-chip {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, .06), rgba(255, 255, 255, .02));
+  border: 1px solid var(--border);
+  font-weight: 600;
+  color: #cbd5e1;
+  transition: transform .15s, border-color .2s
+}
+
+.skill-chip:hover {
+  transform: translateY(-4px);
+  border-color: #c084fc
+}
+
+/* Stats + info */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px
+}
+
+.stat {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px;
+  text-align: center;
+  transition: transform .2s
+}
+
+.stat:hover {
+  transform: translateY(-6px)
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px
+}
+
+/* Reveal-on-scroll */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: all .6s ease
+}
+
+.reveal.show {
+  opacity: 1;
+  transform: none
+}
+
+/* Typewriter caret */
+.role {
+  min-height: 28px;
+  color: #c7d2fe
+}
+
+.type-caret::after {
+  content: "|";
+  margin-left: 4px;
+  animation: blink 1s infinite
+}
+
+/* Animated background canvas + glow layers */
+#aiBg {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  width: 100vw;
+  height: 100vh;
+  background: radial-gradient(1200px 600px at -20% 10%, #312e8155, transparent 60%),
+    radial-gradient(800px 400px at 120% 10%, #14b8a655, transparent 40%),
+    #0b1220;
+}
+
+.gradient-glow {
+  position: fixed;
+  inset: auto -15% -15% -15%;
+  height: 60vh;
+  z-index: -1;
+  background: radial-gradient(60% 60% at 50% 50%, rgba(124, 58, 237, .18), transparent 60%),
+    radial-gradient(40% 50% at 30% 30%, rgba(20, 184, 166, .15), transparent 60%);
+  filter: blur(60px);
+}
+
+/* Certification accordion */
+.cert-accordion {
+  display: grid;
+  gap: 12px;
+}
+
+.cert-item {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--card);
+  overflow: hidden;
+}
+
+.cert-head {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+  background: transparent;
+  color: var(--text);
+  border: 0;
+  cursor: pointer;
+  text-align: left;
+  font-weight: 600;
+  transition: background .2s, color .2s;
+}
+
+.cert-head:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.cert-head::after {
+  content: '▾';
+  font-size: 14px;
+  color: var(--muted);
+  transition: transform .2s ease;
+}
+
+.cert-item.active .cert-head::after {
+  transform: rotate(-180deg);
+}
+
+.cert-head small {
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.cert-body {
+  max-height: 0;
+  overflow: hidden;
+  padding: 0 16px;
+  color: var(--muted);
+  transform-origin: top;
+  transition: max-height .35s ease, padding .25s ease;
+}
+
+.cert-item.active .cert-body {
+  padding: 10px 16px 16px 16px;
+  max-height: 260px; /* enough for typical content */
+  animation: certIn .25s ease;
+}
+
+@keyframes certIn {
+  from {
+    opacity: .4;
+    transform: scaleY(.98)
+  }
+  to {
+    opacity: 1;
+    transform: none
+  }
+}
+
+/* Keyframes */
+@keyframes pulse {
+  0% {
+    transform: scale(.95)
+  }
+  50% {
+    transform: scale(1)
+  }
+  100% {
+    transform: scale(.95)
+  }
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1
+  }
+  50% {
+    opacity: .2
+  }
+}
+
+@keyframes ringPulse {
+  0%,
+  100% {
+    transform: scale(1)
+  }
+  50% {
+    transform: scale(1.06)
+  }
+}
+
+@keyframes floatIn {
+  to {
+    transform: none
+  }
+}
+
+/* Footer */
+footer {
+  border-top: 1px solid #1f2937;
+  background: rgba(255, 255, 255, .02)
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+  .info-grid {
+    grid-template-columns: 1fr
+  }
+  .stats {
+    grid-template-columns: 1fr 1fr
+  }
+}
